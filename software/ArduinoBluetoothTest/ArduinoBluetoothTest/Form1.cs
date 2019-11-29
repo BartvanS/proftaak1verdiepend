@@ -7,6 +7,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ArduinoBluetoothTest
@@ -21,6 +22,10 @@ namespace ArduinoBluetoothTest
             serialPort1.PortName = "COM8";
             serialPort1.BaudRate = 9600;
 
+            var WriteLineWorker = new BackgroundWorker();
+            WriteLineWorker.DoWork += new DoWorkEventHandler(writeToSerialAchtergrond);
+            
+
             try
             {
                 if (!serialPort1.IsOpen)
@@ -32,7 +37,18 @@ namespace ArduinoBluetoothTest
             {
                 MessageBox.Show(ex.Message);
             }
-            serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(DataReceived);
+            //serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(DataReceived);
+            //WriteLineWorker.RunWorkerAsync();
+        }
+
+        void writeToSerialAchtergrond(object sender, DoWorkEventArgs e)
+        {
+            while (serialPort1.IsOpen)
+            {
+                serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(DataReceived);
+                Thread.Sleep(500);
+            }
+            
         }
 
         private void DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
@@ -40,7 +56,7 @@ namespace ArduinoBluetoothTest
             try
             {
                 SerialPort spl = (SerialPort)sender;
-                Console.Write("Data" + count + " " + spl.ReadLine() + "/n");
+                SerialRecieve.Text = serialPort1.ReadLine();
                 count++;
             }
             catch(Exception ex)
@@ -51,13 +67,95 @@ namespace ArduinoBluetoothTest
 
         private void ButtonConnect_Click(object sender, EventArgs e)
         {
-            serialPort1.Write(SerialSend.Text);
+            writeToSerial(SerialSend.Text);
             SerialSend.Text = " ";
+        }
+
+        private void writeToSerial(string SerialInput)
+        {
+            try
+            {
+                serialPort1.Write(SerialInput);
+                // Console.WriteLine(SerialInput);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void ButtonDisconnect_Click(object sender, EventArgs e)
         {
-            serialPort1.Write("f");
+            writeToSerial("f");
+        }
+
+        private void MoveButtonReleased(object sender, MouseEventArgs e)
+        {
+            writeToSerial(" ");
+        }
+
+        private void ForwardMouseDown(object sender, MouseEventArgs e)
+        {
+            writeToSerial("w");
+        }
+
+        private void BackwardMouseDown(object sender, MouseEventArgs e)
+        {
+            writeToSerial("s");
+        }
+
+        private void LeftMouseDown(object sender, MouseEventArgs e)
+        {
+            writeToSerial("d");
+        }
+
+        private void RightMouseDown(object sender, MouseEventArgs e)
+        {
+            writeToSerial("a");
+        }
+
+        private void MoveKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.W)
+            {
+                writeToSerial("t");
+                ForwardButton.BackColor = Color.Red;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                writeToSerial("s");
+                ForwardButton.BackColor = Color.Red;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                writeToSerial("d");
+                ForwardButton.BackColor = Color.Red;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                writeToSerial("a");
+                ForwardButton.BackColor = Color.Red;
+            }
+
+            else
+            {
+                return;
+            }
+        }
+
+        private void MoveKeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.A || e.KeyCode == Keys.D || e.KeyCode == Keys.S)
+            {
+                writeToSerial(" ");
+            }
+            if(e.KeyCode == Keys.W)
+            {
+                writeToSerial("u");
+                ForwardButton.BackColor = Color.Blue;
+            }
         }
     }
 }
