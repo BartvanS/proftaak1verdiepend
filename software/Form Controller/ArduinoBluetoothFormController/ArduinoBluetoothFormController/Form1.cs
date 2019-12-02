@@ -19,6 +19,11 @@ namespace ArduinoBluetoothFormController
             listBox1.Items.Add(new SerialPort("COM7", "AndereConnectie", 9600));
         }
 
+        void RunTest(string message)
+        {
+            MessageBox.Show(message);
+        }
+
         //Writes to the serial any message you put in it
         void writeToSerial(string message)
         {
@@ -120,6 +125,89 @@ namespace ArduinoBluetoothFormController
             }
         }
 
-        
+        //Zorgt ervoor dat wanneer je wil typen je niet de event afzet van ingedrukte knoppen
+        //Zo kun je als je w intypt in de textbox de auto niet naar voren gaat
+        private void SerialMessageEntered(object sender, EventArgs e)
+        {
+            KeyPreview = false;
+        }
+
+        //Dit zorgt dat de key events weer actief worden
+        private void SerialMessageLeft(object sender, EventArgs e)
+        {
+            KeyPreview = true;
+        }
+
+       //Dit kijkt of er een key is ingedrukt en voert dan een command naar de arduino
+        void MoveKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W)
+            {
+                //writeToSerial("t");
+                //RunTest("Vooruit");
+                ForwardButton.BackColor = Color.Red;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                //writeToSerial("s");
+                //RunTest("Achteruit");
+                BackwardButton.BackColor = Color.Red;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                //writeToSerial("d");
+                //RunTest("Links");
+                RightButton.BackColor = Color.Red;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                //writeToSerial("a");
+                //RunTest("Rechts");
+                LeftButton.BackColor = Color.Red;
+            }
+            if (e.KeyCode == Keys.C)
+            {
+                //writeToSerial("l");
+                KillSwitch.BackColor = Color.Red;
+            }
+
+            else
+            {
+                return;
+            }           
+        }
+        private void MoveKeyReleased(object sender, KeyEventArgs e)
+        {
+            /*if (e.KeyCode == Keys.A || e.KeyCode == Keys.D || e.KeyCode == Keys.S)
+            {
+                //RunTest("Iets anders is los gelaten");
+                //writeToSerial(" ");
+                BackwardButton.BackColor = Color.Blue;
+                LeftButton.BackColor = Color.Blue;
+                RightButton.BackColor = Color.Blue;
+            }*/
+            if (e.KeyCode == Keys.W)
+            {
+                //writeToSerial("u");
+                //RunTest("Stop met vooruit");
+                ForwardButton.BackColor = Color.Blue;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                BackwardButton.BackColor = Color.Blue;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                LeftButton.BackColor = Color.Blue;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                RightButton.BackColor = Color.Blue;
+            }
+            if (e.KeyCode == Keys.C)
+            {
+                KillSwitch.BackColor = Color.Blue;
+            }
+        }
     }
 }
