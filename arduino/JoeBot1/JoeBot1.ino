@@ -1,8 +1,7 @@
 int enA = 11;
 int in1 = 7;
 int in2 = 6;
-int enB = 9
-;
+int enB = 10;
 int in3 = 5;
 int in4 = 4;
 void setup()
@@ -61,5 +60,11 @@ void uit(){
 }
 
 void loop(){
+  achteruit();
+  delay(1000);
+  vooruit();
+    delay(1000);
   links();
+    delay(1000);
+  rechts();
 }
