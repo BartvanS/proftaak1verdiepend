@@ -11,27 +11,89 @@ using System.Windows.Forms;
 namespace ArduinoBluetoothFormController
 {
     public partial class Form1 : Form
-    {
+    {        
+        bool KeyW = false;
+        bool KeyA = false;
+        bool KeyS = false;
+        bool KeyD = false;
+        bool KeyC = false;
+        MoveKeys PressedKeys = new MoveKeys("w");
+
         public Form1()
         {
             InitializeComponent();
             listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 9600));
             listBox1.Items.Add(new SerialPort("COM7", "AndereConnectie", 9600));
+           // serialPort1.DataReceived += serialPort1_DataReceived;
+           // serialPort1.DtrEnable = true;
         }
 
+        public string CheckMovementkeypressed(string Key)
+        {
+            if (Key == "c")
+            {
+                KeyPreview = false;
+                SerialMessage.Enabled = false;
+                ResetButton.Enabled = true;
+                ResetButton.Visible = true;
+                KillSwitch.BackColor = Color.Blue;
+                ForwardButton.BackColor = Color.Blue;
+                BackwardButton.BackColor = Color.Blue;
+                LeftButton.BackColor = Color.Blue;
+                RightButton.BackColor = Color.Blue;
+            }
+            PressedKeys.Keyname = Key;
+            string ReturnedKey = PressedKeys.Send();
+            
+            return ReturnedKey;
+        }
+
+        //Een makkelijkere manier om te testen of iets werkt zonder de hele command opnieuw te typen
+        void RunTest()
+        {
+            MessageBox.Show("Test complete");
+        }
         void RunTest(string message)
         {
             MessageBox.Show(message);
         }
 
         //Writes to the serial any message you put in it
-        void writeToSerial(string message)
+        public void writeToSerial(string message)
         {
-            serialPort1.Write(message);
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write(message);
+                //SerialRecieveData();
+            }
+            //RunTest(message);
+            Console.WriteLine(message);
         }
 
+        void SerialRecieveData()
+        {
+            //Console.WriteLine(serialPort1.ReadExisting());
+            //Console.WriteLine(serialPort1.ReadChar());
+            
+            //SerialRecieve.Text += serialPort1.ReadExisting() + Environment.NewLine;
+            SerialRecieve.Text += serialPort1.ReadLine() + Environment.NewLine;
+        }
+
+        /*private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            string line = serialPort1.ReadExisting();
+            this.BeginInvoke(new LineReceivedEvent(LineReceived), line);
+        }
+        private delegate void LineReceivedEvent(string line);
+        private void LineReceived(string line)
+        {
+            //What to do with the received line here
+            SerialRecieve.Text = line + Environment.NewLine;
+
+        }*/
+
         //Writes to the serial with the textbox next to the send button
-        void SerialWrite()
+        void SerialTextbox()
         {
             if(SerialMessage.Text == null)
             {
@@ -121,19 +183,19 @@ namespace ArduinoBluetoothFormController
             }
             else
             {
-                SerialWrite();
+                SerialTextbox();
             }
         }
 
         //Zorgt ervoor dat wanneer je wil typen je niet de event afzet van ingedrukte knoppen
         //Zo kun je als je w intypt in de textbox de auto niet naar voren gaat
-        private void SerialMessageEntered(object sender, EventArgs e)
+        private void SerialTextboxEntered(object sender, EventArgs e)
         {
             KeyPreview = false;
         }
 
         //Dit zorgt dat de key events weer actief worden
-        private void SerialMessageLeft(object sender, EventArgs e)
+        private void SerialTextboxLeft(object sender, EventArgs e)
         {
             KeyPreview = true;
         }
@@ -141,35 +203,109 @@ namespace ArduinoBluetoothFormController
        //Dit kijkt of er een key is ingedrukt en voert dan een command naar de arduino
         void MoveKeyDown(object sender, KeyEventArgs e)
         {
+
             if (e.KeyCode == Keys.W)
             {
-                //writeToSerial("t");
-                //RunTest("Vooruit");
                 ForwardButton.BackColor = Color.Red;
+                KeyW = true;
             }
             if (e.KeyCode == Keys.S)
             {
-                //writeToSerial("s");
-                //RunTest("Achteruit");
                 BackwardButton.BackColor = Color.Red;
+                KeyS = true;
             }
             if (e.KeyCode == Keys.D)
             {
-                //writeToSerial("d");
-                //RunTest("Links");
                 RightButton.BackColor = Color.Red;
+                KeyD = true;
             }
             if (e.KeyCode == Keys.A)
             {
-                //writeToSerial("a");
-                //RunTest("Rechts");
                 LeftButton.BackColor = Color.Red;
+                KeyA = true;
             }
             if (e.KeyCode == Keys.C)
             {
-                //writeToSerial("l");
                 KillSwitch.BackColor = Color.Red;
+                KeyC = true;
             }
+
+
+
+            if (KeyC == true)
+            {
+                writeToSerial(CheckMovementkeypressed("c"));
+            }
+
+
+            else if (KeyW == true && KeyA == true && KeyS == true && KeyD == true)
+            {
+                writeToSerial(CheckMovementkeypressed("wasd"));
+            }
+
+
+            else if (KeyW == true && KeyA == true && KeyD == true)
+
+            {
+                writeToSerial(CheckMovementkeypressed("wad"));
+            }
+            else if (KeyS == true && KeyA == true && KeyD == true)
+            {
+                writeToSerial(CheckMovementkeypressed("sad"));
+            }
+            else if (KeyA == true && KeyW == true && KeyS == true)
+            {
+                writeToSerial(CheckMovementkeypressed("aws"));
+            }
+            else if (KeyD == true && KeyW == true && KeyS == true)
+            {
+                writeToSerial(CheckMovementkeypressed("dws"));
+            }
+
+
+            else if (KeyW == true && KeyS == true)
+            {
+                writeToSerial(CheckMovementkeypressed("ws"));
+            }
+            else if (KeyA == true && KeyD == true)
+            {
+                writeToSerial(CheckMovementkeypressed("ad"));
+            }
+            else if (KeyW == true && KeyA == true)
+            {
+                writeToSerial(CheckMovementkeypressed("wa"));
+            }
+            else if (KeyW == true && KeyD == true)
+            {
+                writeToSerial(CheckMovementkeypressed("wd"));
+            }
+            else if (KeyS == true && KeyA == true)
+            {
+                writeToSerial(CheckMovementkeypressed("sa"));
+            }
+            else if (KeyS == true && KeyD == true)
+            {
+                writeToSerial(CheckMovementkeypressed("sd"));
+            }
+
+
+            else if (KeyW == true)
+            {
+                writeToSerial(CheckMovementkeypressed("w"));
+            }
+            else if (KeyS == true)
+            {
+                writeToSerial(CheckMovementkeypressed("s"));
+            }
+            else if (KeyD == true)
+            {
+                writeToSerial(CheckMovementkeypressed("d"));
+            }
+            else if (KeyA == true)
+            {
+                writeToSerial(CheckMovementkeypressed("a"));
+            }
+
 
             else
             {
@@ -178,36 +314,39 @@ namespace ArduinoBluetoothFormController
         }
         private void MoveKeyReleased(object sender, KeyEventArgs e)
         {
-            /*if (e.KeyCode == Keys.A || e.KeyCode == Keys.D || e.KeyCode == Keys.S)
-            {
-                //RunTest("Iets anders is los gelaten");
-                //writeToSerial(" ");
-                BackwardButton.BackColor = Color.Blue;
-                LeftButton.BackColor = Color.Blue;
-                RightButton.BackColor = Color.Blue;
-            }*/
             if (e.KeyCode == Keys.W)
             {
-                //writeToSerial("u");
-                //RunTest("Stop met vooruit");
                 ForwardButton.BackColor = Color.Blue;
+                KeyW = false;
             }
             if (e.KeyCode == Keys.S)
             {
                 BackwardButton.BackColor = Color.Blue;
+                KeyS = false;
             }
             if (e.KeyCode == Keys.A)
             {
                 LeftButton.BackColor = Color.Blue;
+                KeyA = false;
             }
             if (e.KeyCode == Keys.D)
             {
                 RightButton.BackColor = Color.Blue;
+                KeyD = false;
             }
             if (e.KeyCode == Keys.C)
             {
                 KillSwitch.BackColor = Color.Blue;
             }
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            KeyPreview = true;
+            SerialMessage.Enabled = true;
+            ResetButton.Enabled = false;
+            ResetButton.Visible = false;
+            KeyC = false;
         }
     }
 }

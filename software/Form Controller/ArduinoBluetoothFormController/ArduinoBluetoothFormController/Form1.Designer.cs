@@ -36,7 +36,7 @@
             this.ConnectStatus = new System.Windows.Forms.Label();
             this.SerialMessage = new System.Windows.Forms.TextBox();
             this.SerialWriteSend = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.SerialRecieve = new System.Windows.Forms.RichTextBox();
             this.RightButton = new System.Windows.Forms.Button();
             this.KillSwitch = new System.Windows.Forms.Button();
             this.ForwardButton = new System.Windows.Forms.Button();
@@ -44,6 +44,7 @@
             this.LeftButton = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.ResetButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,8 +107,8 @@
             this.SerialMessage.Name = "SerialMessage";
             this.SerialMessage.Size = new System.Drawing.Size(124, 22);
             this.SerialMessage.TabIndex = 1;
-            this.SerialMessage.Enter += new System.EventHandler(this.SerialMessageEntered);
-            this.SerialMessage.Leave += new System.EventHandler(this.SerialMessageLeft);
+            this.SerialMessage.Enter += new System.EventHandler(this.SerialTextboxEntered);
+            this.SerialMessage.Leave += new System.EventHandler(this.SerialTextboxLeft);
             // 
             // SerialWriteSend
             // 
@@ -119,13 +120,17 @@
             this.SerialWriteSend.UseVisualStyleBackColor = true;
             this.SerialWriteSend.Click += new System.EventHandler(this.SerialWriteSend_Click);
             // 
-            // richTextBox1
+            // SerialRecieve
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(577, 302);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(205, 177);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
+            this.SerialRecieve.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.SerialRecieve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.SerialRecieve.Location = new System.Drawing.Point(577, 302);
+            this.SerialRecieve.Name = "SerialRecieve";
+            this.SerialRecieve.ReadOnly = true;
+            this.SerialRecieve.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.SerialRecieve.Size = new System.Drawing.Size(205, 177);
+            this.SerialRecieve.TabIndex = 3;
+            this.SerialRecieve.Text = "";
             // 
             // RightButton
             // 
@@ -186,18 +191,31 @@
             this.label2.TabIndex = 12;
             this.label2.Text = "Informatie Auto:";
             // 
+            // ResetButton
+            // 
+            this.ResetButton.Enabled = false;
+            this.ResetButton.Location = new System.Drawing.Point(306, 433);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.Size = new System.Drawing.Size(237, 46);
+            this.ResetButton.TabIndex = 13;
+            this.ResetButton.Text = "Power back on";
+            this.ResetButton.UseVisualStyleBackColor = true;
+            this.ResetButton.Visible = false;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 504);
+            this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.LeftButton);
             this.Controls.Add(this.BackwardButton);
             this.Controls.Add(this.ForwardButton);
             this.Controls.Add(this.KillSwitch);
             this.Controls.Add(this.RightButton);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.SerialRecieve);
             this.Controls.Add(this.SerialWriteSend);
             this.Controls.Add(this.SerialMessage);
             this.Controls.Add(this.groupBox1);
@@ -220,7 +238,7 @@
         private System.Windows.Forms.Button ConnectButton;
         private System.Windows.Forms.TextBox SerialMessage;
         private System.Windows.Forms.Button SerialWriteSend;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox SerialRecieve;
         private System.Windows.Forms.Button RightButton;
         private System.Windows.Forms.Button KillSwitch;
         private System.Windows.Forms.Button ForwardButton;
@@ -229,6 +247,7 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button SerialDisconnect;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button ResetButton;
     }
 }
 
