@@ -1,15 +1,15 @@
 //
 int trig = 12;
-int echo = 11;
+int echo = 3;
 long lecture_echo;
 long cm;
 //motor shield
 int enA = 10;
-int in1 = 9;
-int in2 = 8;
-int enB = 5;
-int in3 = 4;
-int in4 = 3;
+int in1 = 7;
+int in2 = 6;
+int enB = 11;
+int in3 = 5;
+int in4 = 4;
 //test led
 int led = 8;
 
@@ -39,15 +39,32 @@ void loop()
   lecture_echo = pulseIn(echo, HIGH);
   cm = lecture_echo / 58;
   Serial.println(cm);
+
+  //rijd naar voren
+  //  vooruit();
+
+  //check afstand
   if (cm < 20)
   {
-    digitalWrite(led, HIGH);
+    vooruit();
+    //ga naar links en kijk er plek is
+    //if (plek) rijd naar voren
+    //else kijk rechts
+    // if(rechts plek vrij) rijd naar voren
+    // elserijd een stuk naar achteren en rijd naar links
+
+    //gebaseerd op de laatste richting krijgt de andere richting prioriteit bij de volgende stop.
+    //dus als hij naar links ging en ging rijden dan zou hij de eerstvolgende stop eerst rechts kijken of er plek is
   }
   else
   {
+    achteruit();
     digitalWrite(led, LOW);
   }
+
 }
+
+
 
 
 
@@ -55,8 +72,8 @@ void loop()
 
 void vooruit()
 {
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
   digitalWrite(in3, HIGH);
   digitalWrite(in4, LOW);
   analogWrite(enA, 255);
@@ -65,17 +82,7 @@ void vooruit()
 
 void achteruit()
 {
-  digitalWrite(in1, HIGH);
-  digitalWrite(in2, LOW);
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
-  analogWrite(enA, 255);
-  analogWrite(enB, 255);
-}
-
-void rechts()
-{
-  digitalWrite(in1, LOW); // eerste 2 zijn links 2de rechts
+  digitalWrite(in1, LOW);
   digitalWrite(in2, HIGH);
   digitalWrite(in3, LOW);
   digitalWrite(in4, HIGH);
@@ -87,6 +94,16 @@ void links()
 {
   digitalWrite(in1, HIGH); // eerste 2 zijn links 2de rechts
   digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+  analogWrite(enA, 255);
+  analogWrite(enB, 255);
+}
+
+void rechts()
+{
+  digitalWrite(in1, LOW); // eerste 2 zijn links 2de rechts
+  digitalWrite(in2, HIGH);
   digitalWrite(in3, HIGH);
   digitalWrite(in4, LOW);
   analogWrite(enA, 255);
