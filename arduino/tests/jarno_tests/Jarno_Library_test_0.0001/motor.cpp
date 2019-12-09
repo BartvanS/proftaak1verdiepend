@@ -10,13 +10,26 @@ int in3 = 5;
 int in4 = 4;
 
 
-void initMotor(){
+void initMotor(bool autonoom){
+  if(autonoom == false){
   pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
   pinMode(in1, OUTPUT);
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
+  } else if(autonoom == true){
+    in1 = 6;
+    in2 = 7;
+    in3 = 4;
+    in4 = 5;
+    pinMode(enA, OUTPUT);
+    pinMode(enB, OUTPUT);
+    pinMode(in1, OUTPUT);
+    pinMode(in2, OUTPUT);
+    pinMode(in3, OUTPUT);
+    pinMode(in4, OUTPUT);
+  }
 }
 
 void forward(int motorSpeed){
