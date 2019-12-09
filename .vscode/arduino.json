@@ -1,0 +1,4 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "arduino\\JoeBot1\\JoeBot1.ino"
+}
