@@ -5,47 +5,40 @@
 
 #define DEBUG_ENABLED  1
 
-SoftwareSerial blueToothSerial(RxD, TxD); 
+SoftwareSerial blueToothSerial(RxD, TxD);
 void setup()
 {
+  setupBlueToothConnection();
   Serial.begin(9600);
   initMotor(false);
-  
   pinMode(RxD, INPUT);
   pinMode(TxD, OUTPUT);
-  setupBlueToothConnection();
-
-
 }
 
 void loop()
 {
-
   char recvChar;
-  while (1)
-  {
-    if (blueToothSerial.available())
-    { //check if there's any data sent from the remote bluetooth shield
-      recvChar = blueToothSerial.read();
-      Serial.print(recvChar);
-      if (recvChar == 'w') {
-          forward(255);
-        Serial.println("lampje aan.");
-      }else if (recvChar == 's' ){
-        backwards(255);
-      }else if (recvChar == 'a' ){
-        turnLeft(255);
-      }else if (recvChar == 'd' ){
-        turnRight(255);
-      }else{
-        motorOff();
-      }
+  if (blueToothSerial.available())
+  { //check if there's any data sent from the remote bluetooth shield
+    recvChar = blueToothSerial.read();
+    Serial.print(recvChar);
+    if (recvChar == 'w') {
+      forward(255);
+      Serial.println("lampje aan.");
+    } else if (recvChar == 's' ) {
+      backwards(255);
+    } else if (recvChar == 'a' ) {
+      turnLeft(255);
+    } else if (recvChar == 'd' ) {
+      turnRight(255);
+    } else {
+      motorOff();
     }
-    if (Serial.available())
-    { //check if there's any data sent from the local serial terminal, you can add the other applications here
-      recvChar  = Serial.read();
-      blueToothSerial.print(recvChar);
-    }
+  }
+  if (Serial.available())
+  { //check if there's any data sent from the local serial terminal, you can add the other applications here
+    recvChar  = Serial.read();
+    blueToothSerial.print(recvChar);
   }
 }
 
