@@ -1,6 +1,13 @@
-//
+
+//uninterupted delay
+unsigned long previousMillis = 0;
+bool goLeft = 0;
+int interval = 2000;
+
+
+// ultrasone sensor
 int trig = 12;
-int echo = 3;
+int echo = 9;
 long lecture_echo;
 long cm;
 //motor shield
@@ -12,8 +19,8 @@ int in3 = 5;
 int in4 = 4;
 //test led
 int led = 8;
-
-bool detected = false;
+//afgesproken afstand
+int setDistance = 20;
 void setup()
 {
   pinMode(enA, OUTPUT);
@@ -27,43 +34,49 @@ void setup()
   digitalWrite(trig, LOW);
   pinMode(echo, INPUT);
   Serial.begin(9600);
-
   //led output
   pinMode(led, OUTPUT);
 }
 void loop()
 {
+  unsigned long currentMillis = millis();
   digitalWrite(trig, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig, LOW);
   lecture_echo = pulseIn(echo, HIGH);
   cm = lecture_echo / 58;
-  Serial.println(cm);
 
   //rijd naar voren
-  //  vooruit();
+  vooruit();
 
   //check afstand
-  if (cm < 20)
+  if (cm < setDistance)
   {
-    vooruit();
-    //ga naar links en kijk er plek is
-    //if (plek) rijd naar voren
-    //else kijk rechts
-    // if(rechts plek vrij) rijd naar voren
-    // elserijd een stuk naar achteren en rijd naar links
 
-    //gebaseerd op de laatste richting krijgt de andere richting prioriteit bij de volgende stop.
-    //dus als hij naar links ging en ging rijden dan zou hij de eerstvolgende stop eerst rechts kijken of er plek is
-  }
-  else
-  {
-    achteruit();
-    digitalWrite(led, LOW);
-  }
+    if (goLeft < 5) {
+      links();
+    } else {
+      rechts();
+    }
+    if (currentMillis - previousMillis >= interval) {
+      previousMillis = currentMillis;
+      goLeft = goLeft + 1;
 
+      //      if (!isFree(cm)) {
+      //        rechts();
+      //        delay(3000);
+      //      }
+
+    }
+  }
 }
-
+bool isFree(int cm) {
+  if (cm > setDistance) {
+    Serial.println("Plek is vrij");
+    return true;
+  }
+  return false;
+}
 
 
 
