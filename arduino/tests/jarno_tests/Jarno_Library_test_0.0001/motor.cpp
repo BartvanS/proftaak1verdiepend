@@ -11,14 +11,18 @@ int in4 = 4;
 
 
 void initMotor(bool autonoom){
-  if(autonoom == false){
+  if(autonoom == true){
+    in1 = 7;
+    in2 = 6;
+    in3 = 5;
+    in4 = 4;
   pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
   pinMode(in1, OUTPUT);
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
-  } else if(autonoom == true){
+  } else if(autonoom == false){
     in1 = 6;
     in2 = 7;
     in3 = 4;
