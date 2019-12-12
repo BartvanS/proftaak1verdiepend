@@ -37,16 +37,19 @@ void loop()
 
 bool scanSide(String side) {
   int cm = getDistance();
-  int maxTurns = 0;
-  while (cm < minDistance) {
-    maxTurns += 1;
+  int maxTurns = 3;
+  int count = 0;
+  while (cm < minDistance) { //&& count < maxTurns
+    count += 1;
     cm = getDistance();
     if (cm > minDistance) {
       return true;
     }
     if (side == "left") {
       turnLeft(255);
-    } 
+    } else {
+      turnRight(255);
+    }
     delay(500);
   }
   return false;
