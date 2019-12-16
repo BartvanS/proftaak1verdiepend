@@ -5,6 +5,7 @@
 #define TxD 6
 //#define DEBUG_ENABLED  1
 char recvChar;
+int minDistance = 20;
 SoftwareSerial blueToothSerial(RxD, TxD);
 void setup()
 {
@@ -19,9 +20,19 @@ void setup()
 void loop()
 {
   receiveInput();
-  Serial.println(getDistance());
+  int  cmMiddle = getDistance(1);
+  int cmLeft = getDistance(2);
+  forward(255);
+  if (cmMiddle < minDistance) {
+    doTurn();
+  }
 }
 
+void doTurn() {
+  turnRight(255);
+  delay(1000);
+  motorOff();
+}
 void receiveInput() {
   if (Serial.available())
   { //check if there's any data sent from the local serial terminal, you can add the other applications here

@@ -1,4 +1,4 @@
 #include "Arduino.h"
 
 void setUltrasone();
-int getDistance();
+int getDistance(int servoName);

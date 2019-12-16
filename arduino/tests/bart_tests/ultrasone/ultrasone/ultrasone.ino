@@ -1,6 +1,3 @@
-#include "Arduino.h"
-#include "ultrasone.h"
-
 // ultrasone sensor middle 1
 int trigMiddle = 12;
 #define echoMiddle A0
@@ -13,19 +10,21 @@ int trigRight = 4;
 long lecture_echo;
 long cm;
 
-void setUltrasone() {
-  //middle
-  pinMode(trigMiddle, OUTPUT);
-  digitalWrite(trigMiddle, LOW);
-  pinMode(echoMiddle, INPUT);
-  //left
-  pinMode(trigLeft, OUTPUT);
-  digitalWrite(trigLeft, LOW);
-  pinMode(echoLeft, INPUT);
-  //right
-  pinMode(trigRight, OUTPUT);
-  digitalWrite(trigRight, LOW);
-  pinMode(echoRight, INPUT);
+void setup() {
+  Serial.begin(9600);
+  setPins();
+}
+
+void loop() {
+  int distanceMiddle = getDistance(1);
+    int distanceLeft = getDistance(2);
+  int distanceRight = getDistance(3);
+    Serial.print("Midden: ");
+    Serial.println(distanceMiddle);
+        Serial.print("Links: ");
+    Serial.println(distanceLeft);
+        Serial.print("rechts: ");
+    Serial.println(distanceRight);
 }
 
 int getDistance(int servoName) {
@@ -51,4 +50,18 @@ int getDistance(int servoName) {
   lecture_echo = pulseIn(echo, HIGH);
   cm = lecture_echo / 58;
   return cm;
+}
+void setPins() {
+  //middle
+  pinMode(trigMiddle, OUTPUT);
+  digitalWrite(trigMiddle, LOW);
+  pinMode(echoMiddle, INPUT);
+  //left
+  pinMode(trigLeft, OUTPUT);
+  digitalWrite(trigLeft, LOW);
+  pinMode(echoLeft, INPUT);
+  //right
+  pinMode(trigRight, OUTPUT);
+  digitalWrite(trigRight, LOW);
+  pinMode(echoRight, INPUT);
 }
