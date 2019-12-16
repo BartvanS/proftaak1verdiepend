@@ -1,44 +1,67 @@
-// ultrasone sensor1
-int trig1 = 12;
-int echo1 = 9;
-long lecture_echo1;
-long cm1;
-
-// ultrasone sensor2
-int trig2 = 8;
-#define echo2 A0
-long lecture_echo2;
-long cm2;
+// ultrasone sensor middle 1
+int trigMiddle = 12;
+#define echoMiddle A0
+// ultrasone sensor left 2
+int trigLeft = 2;
+#define echoLeft A1
+// ultrasone sensor right 3
+int trigRight = 4;
+#define echoRight A2
+long lecture_echo;
+long cm;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(trig1, OUTPUT);
-  digitalWrite(trig1, LOW);
-  pinMode(echo1, INPUT);
-  pinMode(trig2, OUTPUT);
-  digitalWrite(trig2, LOW);
-  pinMode(echo2, INPUT);
+  setPins();
 }
 
 void loop() {
-  Serial.println(getDistance1());  
-  Serial.println(getDistance2());
+  int distanceMiddle = getDistance(1);
+    int distanceLeft = getDistance(2);
+  int distanceRight = getDistance(3);
+    Serial.print("Midden: ");
+    Serial.println(distanceMiddle);
+        Serial.print("Links: ");
+    Serial.println(distanceLeft);
+        Serial.print("rechts: ");
+    Serial.println(distanceRight);
 }
 
-int getDistance1() {
-  digitalWrite(trig1, HIGH);
+int getDistance(int servoName) {
+  int trigger = trigMiddle;
+  int echo = echoMiddle;
+  switch (servoName) {
+    case 1:
+      trigger = trigMiddle;
+      echo = echoMiddle;
+      break;
+    case 2:
+      trigger = trigLeft;
+      echo = echoLeft;
+      break;
+    case 3:
+      trigger = trigRight;
+      echo = echoRight;
+      break;
+  }
+  digitalWrite(trigger, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trig1, LOW);
-  lecture_echo1 = pulseIn(echo1, HIGH);
-  cm1 = lecture_echo1 / 58;
-  return cm1;
+  digitalWrite(trigger, LOW);
+  lecture_echo = pulseIn(echo, HIGH);
+  cm = lecture_echo / 58;
+  return cm;
 }
-
-int getDistance2() {
-  digitalWrite(trig2, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig2, LOW);
-  lecture_echo2 = pulseIn(echo2, HIGH);
-  cm2 = lecture_echo2 / 58;
-  return cm2;
+void setPins() {
+  //middle
+  pinMode(trigMiddle, OUTPUT);
+  digitalWrite(trigMiddle, LOW);
+  pinMode(echoMiddle, INPUT);
+  //left
+  pinMode(trigLeft, OUTPUT);
+  digitalWrite(trigLeft, LOW);
+  pinMode(echoLeft, INPUT);
+  //right
+  pinMode(trigRight, OUTPUT);
+  digitalWrite(trigRight, LOW);
+  pinMode(echoRight, INPUT);
 }
