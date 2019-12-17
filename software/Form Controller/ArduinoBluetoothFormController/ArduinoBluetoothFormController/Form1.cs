@@ -22,10 +22,10 @@ namespace ArduinoBluetoothFormController
         public Form1()
         {
             InitializeComponent();
-            listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 9600));
+            listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 38400));
             listBox1.Items.Add(new SerialPort("COM7", "AndereConnectie", 9600));
-           // serialPort1.DataReceived += serialPort1_DataReceived;
-           // serialPort1.DtrEnable = true;
+            serialPort1.DataReceived += serialPort1_DataReceived;
+            serialPort1.DtrEnable = true;
         }
 
         public string CheckMovementkeypressed(string Key)
@@ -76,21 +76,30 @@ namespace ArduinoBluetoothFormController
             //Console.WriteLine(serialPort1.ReadChar());
             
             //SerialRecieve.Text += serialPort1.ReadExisting() + Environment.NewLine;
-            SerialRecieve.Text += serialPort1.ReadLine() + Environment.NewLine;
+            SerialRecieve.Text += serialPort1.ReadExisting() + Environment.NewLine;
         }
 
-        /*private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            string line = serialPort1.ReadExisting();
+            
+            string line = serialPort1.ReadLine();
             this.BeginInvoke(new LineReceivedEvent(LineReceived), line);
         }
         private delegate void LineReceivedEvent(string line);
         private void LineReceived(string line)
         {
-            //What to do with the received line here
-            SerialRecieve.Text = line + Environment.NewLine;
 
-        }*/
+            //What to do with the received line here
+            if (line.Contains("#"))
+            {
+                //line.Remove(int iets(line.Length)--);
+            }
+
+
+
+            SerialRecieve.Text += line + Environment.NewLine + Environment.NewLine;
+
+        }
 
         //Writes to the serial with the textbox next to the send button
         void SerialTextbox()
