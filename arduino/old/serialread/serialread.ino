@@ -1,4 +1,6 @@
+
 #include <SoftwareSerial.h>   //Software Serial Port
+
 #define RxD 7
 #define TxD 6
 
@@ -6,23 +8,19 @@
 
 SoftwareSerial blueToothSerial(RxD, TxD);
 int enA = 10;
-int in1 = 9;
-int in2 = 8;
-int enB = 5;
-int in3 = 4;
-int in4 = 3;  
+int in1 = 7;
+int in2 = 6;
+int enB = 11;
+int in3 = 5;
+int in4 = 4;
 
 int snelheid = 255;
 void setup()
 {
   Serial.begin(9600);
-    
+    initMotor(false);
   pinMode(enA, OUTPUT);
-  pinMode(enB, OUTPUT);
-  pinMode(in1, OUTPUT);
-  pinMode(in2, OUTPUT);
-  pinMode(in3, OUTPUT);
-  pinMode(in4, OUTPUT);
+ 
   
   pinMode(RxD, INPUT);
   pinMode(TxD, OUTPUT);
@@ -42,20 +40,16 @@ void loop()
       recvChar = blueToothSerial.read();
       Serial.print(recvChar);
       if (recvChar == 'w') {
-          vooruit();
+          forward(255);
         Serial.println("lampje aan.");
       }else if (recvChar == 's' ){
-        achteruit();
+        backwards(255);
       }else if (recvChar == 'a' ){
-        links();
+        turnLeft(255);
       }else if (recvChar == 'd' ){
-        rechts();
-      }else if (recvChar == 'p' ){
-      
-        }else if (recvChar == 'o' ){
-       
-        }else{
-        uit();
+        turnRight(255);
+      }else {
+        motorOff();
       }
     }
     if (Serial.available())
@@ -80,45 +74,67 @@ void setupBlueToothConnection()
   blueToothSerial.flush();
 }
 
-void achteruit(){
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-  digitalWrite(in3, HIGH);
-  digitalWrite(in4, LOW);
-  analogWrite(enA, 255);
-  analogWrite(enB, 255);
+void initMotor(bool autonoom){
+  if(autonoom == false){
+  pinMode(enA, OUTPUT);
+  pinMode(enB, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  } else if(autonoom == true){
+    in1 = 6;
+    in2 = 7;
+    in3 = 4;
+    in4 = 5;
+    pinMode(enA, OUTPUT);
+    pinMode(enB, OUTPUT);
+    pinMode(in1, OUTPUT);
+    pinMode(in2, OUTPUT);
+    pinMode(in3, OUTPUT);
+    pinMode(in4, OUTPUT);
+  }
 }
 
-void vooruit(){
+void forward(int motorSpeed){
   digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
   digitalWrite(in3, LOW);
   digitalWrite(in4, HIGH);
-  analogWrite(enA, snelheid);
-  analogWrite(enB, snelheid);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, motorSpeed);
 }
 
-void links(){
-  digitalWrite(in1, LOW); // eerste 2 zijn links 2de rechts
+void backwards(int motorSpeed){
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, motorSpeed);
+}
+
+void turnLeft(int motorSpeed){
+  digitalWrite(in1, LOW);
   digitalWrite(in2, HIGH);
   digitalWrite(in3, LOW);
   digitalWrite(in4, HIGH);
-  analogWrite(enA, snelheid);
-  analogWrite(enB, snelheid);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, motorSpeed);
 }
 
-void rechts(){
-  digitalWrite(in1, HIGH); // eerste 2 zijn links 2de rechts
+void turnRight(int motorSpeed){
+  digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
   digitalWrite(in3, HIGH);
   digitalWrite(in4, LOW);
-  analogWrite(enA, snelheid);
-  analogWrite(enB, snelheid);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, motorSpeed);
 }
 
-void uit(){
+void motorOff(){
   digitalWrite(in1, LOW);
-  digitalWrite(in2, LOW); 
+  digitalWrite(in2, LOW);
   digitalWrite(in3, LOW);
   digitalWrite(in4, LOW);
   analogWrite(enA, 0);

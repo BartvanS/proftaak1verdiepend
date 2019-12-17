@@ -22,10 +22,10 @@ namespace ArduinoBluetoothFormController
         public Form1()
         {
             InitializeComponent();
-            listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 38400));
-            listBox1.Items.Add(new SerialPort("COM7", "AndereConnectie", 9600));
-            serialPort1.DataReceived += serialPort1_DataReceived;
-            serialPort1.DtrEnable = true;
+            listBox1.Items.Add(new SerialPort("COM5", "ArduinoBot", 9600));
+            listBox1.Items.Add(new SerialPort("COM6", "AndereConnectie", 9600));
+           // serialPort1.DataReceived += serialPort1_DataReceived;
+           // serialPort1.DtrEnable = true;
         }
 
         public string CheckMovementkeypressed(string Key)
@@ -356,6 +356,11 @@ namespace ArduinoBluetoothFormController
             ResetButton.Enabled = false;
             ResetButton.Visible = false;
             KeyC = false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

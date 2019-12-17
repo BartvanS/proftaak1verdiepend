@@ -37,7 +37,7 @@ void receiveInput() {
   if (Serial.available())
   { //check if there's any data sent from the local serial terminal, you can add the other applications here
     recvChar  = Serial.read();
-    blueToothSerial.println(recvChar);
+    blueToothSerial.println("hoi");
   }
 
   if (blueToothSerial.available())
@@ -56,7 +56,7 @@ void receiveInput() {
     } else if (recvChar == 'd' ) {
       turnRight(255);
       Serial.println("right");
-    } else {
+    } else if(recvChar == 'l') {
       motorOff();
       Serial.println("STOP");
     }
