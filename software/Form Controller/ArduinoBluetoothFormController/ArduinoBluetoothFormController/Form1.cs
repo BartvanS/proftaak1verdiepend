@@ -22,10 +22,10 @@ namespace ArduinoBluetoothFormController
         public Form1()
         {
             InitializeComponent();
-            listBox1.Items.Add(new SerialPort("COM5", "ArduinoBot", 9600));
-            listBox1.Items.Add(new SerialPort("COM6", "AndereConnectie", 9600));
-           // serialPort1.DataReceived += serialPort1_DataReceived;
-           // serialPort1.DtrEnable = true;
+            listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 9600));
+            listBox1.Items.Add(new SerialPort("COM7", "AndereConnectie", 9600));
+            serialPort1.DataReceived += serialPort1_DataReceived;
+            serialPort1.DtrEnable = true;
         }
 
         public string CheckMovementkeypressed(string Key)
@@ -79,9 +79,9 @@ namespace ArduinoBluetoothFormController
             SerialRecieve.Text += serialPort1.ReadExisting() + Environment.NewLine;
         }
 
+        //receive data
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            
             string line = serialPort1.ReadLine();
             this.BeginInvoke(new LineReceivedEvent(LineReceived), line);
         }
@@ -90,15 +90,8 @@ namespace ArduinoBluetoothFormController
         {
 
             //What to do with the received line here
-            if (line.Contains("#"))
-            {
-                //line.Remove(int iets(line.Length)--);
-            }
-
-
-
-            SerialRecieve.Text += line + Environment.NewLine + Environment.NewLine;
-
+            SerialRecieve.Text = line + Environment.NewLine;
+            Status status = new Status();
         }
 
         //Writes to the serial with the textbox next to the send button
@@ -358,7 +351,7 @@ namespace ArduinoBluetoothFormController
             KeyC = false;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void ForwardButton_Click(object sender, EventArgs e)
         {
 
         }
