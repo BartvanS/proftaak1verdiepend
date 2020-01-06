@@ -1,0 +1,10 @@
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\bin\Debug\ditgaat fout.exe.config
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\bin\Debug\ditgaat fout.exe
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\bin\Debug\ditgaat fout.pdb
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\obj\Debug\ditgaat fout.csprojAssemblyReference.cache
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\obj\Debug\ditgaat_fout.Form1.resources
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\obj\Debug\ditgaat_fout.Form2.resources
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\obj\Debug\ditgaat_fout.Properties.Resources.resources
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\obj\Debug\ditgaat fout.csproj.GenerateResource.cache
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\obj\Debug\ditgaat fout.exe
+C:\Users\Cabo\source\repos\ditgaat fout\ditgaat fout\obj\Debug\ditgaat fout.pdb

@@ -46,19 +46,19 @@ void receiveInput() {
     Serial.print(recvChar);
     if (recvChar == 'w') {
       forward(255);
-      Serial.println("Forward.");
+      blueToothSerial.println("Forward.");
     } else if (recvChar == 's' ) {
       backwards(255);
-      Serial.println("Backwards");
+      blueToothSerial.println("Backwards");
     } else if (recvChar == 'a' ) {
       turnLeft(255);
-      Serial.println("left");
+      blueToothSerial.println("left");
     } else if (recvChar == 'd' ) {
       turnRight(255);
-      Serial.println("right");
+      blueToothSerial.println("right");
     } else if(recvChar == 'l') {
       motorOff();
-      Serial.println("STOP");
+      blueToothSerial.println("STOP");
     }
   }
 }
