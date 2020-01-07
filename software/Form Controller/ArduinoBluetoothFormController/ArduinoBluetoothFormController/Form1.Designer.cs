@@ -172,7 +172,7 @@
             this.ForwardButton.TabIndex = 9;
             this.ForwardButton.Text = "W";
             this.ForwardButton.UseVisualStyleBackColor = false;
-            this.ForwardButton.Click += new System.EventHandler(this.ForwardButton_Click);
+            //this.ForwardButton.Click += new System.EventHandler(this.ForwardButton_Click);
             // 
             // BackwardButton
             // 
