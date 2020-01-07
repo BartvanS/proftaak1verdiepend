@@ -4,18 +4,30 @@
 int leftDistance;
 int rightDistance;
 
+unsigned long previousMillis = 0;   
+const long delays = 3000;  
 void setup() {
   initMotor(true);
   setUltrasone();
 }
 
 void lookFreeSpace(){
+   unsigned long currentMillis = millis();
+ if (currentMillis - previousMillis >= delays) {
+    previousMillis = currentMillis;
+ }else
+ {
   turnLeft(255);
-  delay(500);
+ }
   motorOff();
   leftDistance = getDistance();
+  
+   if (currentMillis - previousMillis >= delays * 2) {
+    previousMillis = currentMillis;
+ }else{
   turnRight(255);
-  delay(750);
+ }
+ 
   motorOff();
   rightDistance = getDistance();
 }
