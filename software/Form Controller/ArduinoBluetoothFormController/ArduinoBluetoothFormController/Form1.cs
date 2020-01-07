@@ -22,13 +22,13 @@ namespace ArduinoBluetoothFormController
         public Form1()
         {
             InitializeComponent();
-<<<<<<< Updated upstream
+
             listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 9600));
             listBox1.Items.Add(new SerialPort("COM7", "AndereConnectie", 9600));
-=======
+
             listBox1.Items.Add(new SerialPort("COM5", "ArduinoBot", 9600));
             listBox1.Items.Add(new SerialPort("COM6", "AndereConnectie", 9600));
->>>>>>> Stashed changes
+
             serialPort1.DataReceived += serialPort1_DataReceived;
             serialPort1.DtrEnable = true;
         }
@@ -96,7 +96,6 @@ namespace ArduinoBluetoothFormController
 
             //What to do with the received line here
             SerialRecieve.Text = line + Environment.NewLine;
-            Status status = new Status();
         }
 
         //Writes to the serial with the textbox next to the send button
