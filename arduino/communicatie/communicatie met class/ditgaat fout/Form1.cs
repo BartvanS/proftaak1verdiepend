@@ -13,7 +13,7 @@ namespace ditgaat_fout
 {
     public partial class Form1 : Form
     {
-
+        communicatie com = new communicatie();
        
         int waardeultra;
         int waardepot;
@@ -47,14 +47,11 @@ namespace ditgaat_fout
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            waardepot = Convert.ToInt32(inputpot);
-            waardeultra = Convert.ToInt32(inputultra);
-            //waardetemp = Convert.ToInt32(inputtemp);
-            //waardehum = Convert.ToInt32(inputhum);
+           
 
             
-            label1.Text = "xpositie   :      " + waardeultra;
-            label2.Text = "ypositie   :     " + inputpot  ;
+            label1.Text = waardeultra.ToString();
+            label2.Text =  waardetemp.ToString()  ;
             label3.Text = "buttonstate   :     " + inputtemp  ;
 
             if (waardeultra <= 255)
@@ -70,38 +67,15 @@ namespace ditgaat_fout
                 input = serialPort1.ReadTo("%");
                 inputall = input;
             }
-
-            if (input != "")
+            com.inputInt(inputall, "xpositie");
+            if (com.inputInt(inputall, "xpositie") > 0)
             {
-                string[] getal = input.Split(':');
+                waardeultra = com.inputInt(inputall, "xpositie");
+            }
 
-                if (getal.Length >= 2)
-                {
-                    String gekregen = getal[0];
-                    String[] joe = gekregen.Split('#');
-                    if (joe.Length >= 2)
-                    {
-                        wat = joe[1];
-                        switch (wat)
-                        {
-                            case "xpositie":
-                                inputultra = getal[1];
-                                break;
-
-                            case "ypositie":
-                                inputpot = getal[1];
-                                break;
-                            case "buttonstate":
-                                inputtemp = getal[1];
-                                break;
-                            case "humidity":
-                                inputhum = getal[1];
-
-                                break;
-                        }
-                    }
-
-                }
+            if (com.inputInt(inputall, "ypositie") > 0)
+            {
+                waardetemp = com.inputInt(inputall, "ypositie");
             }
         }
 
