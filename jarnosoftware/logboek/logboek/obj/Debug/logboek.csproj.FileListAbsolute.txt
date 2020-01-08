@@ -1,0 +1,10 @@
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\bin\Debug\logboek.exe.config
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\bin\Debug\logboek.exe
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\bin\Debug\logboek.pdb
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\obj\Debug\logboek.csprojAssemblyReference.cache
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\obj\Debug\logboek.Form1.resources
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\obj\Debug\logboek.Properties.Resources.resources
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\obj\Debug\logboek.csproj.GenerateResource.cache
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\obj\Debug\logboek.csproj.CoreCompileInputs.cache
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\obj\Debug\logboek.exe
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\logboek\logboek\obj\Debug\logboek.pdb
