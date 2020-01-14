@@ -5,7 +5,12 @@
 #define TxD 6
 //#define DEBUG_ENABLED  1
 char recvChar;
-int minDistance = 20;
+
+
+String snelheidstring;
+String inputString = "";
+String commandString;// a string to hold incoming data
+boolean stringComplete = false;  // whether the string is complete
 SoftwareSerial blueToothSerial(RxD, TxD);
 void setup()
 {
@@ -20,41 +25,41 @@ void setup()
 
 void loop()
 {
-  
+ getCommand();
   receiveInput();
-//  int  cmMiddle = getDistance(1);
-//  int cmLeft = getDistance(2);
-                     forward(255);
-//  if (cmMiddle < minDistance) {
-//    doTurn();
-//  }
-//}
-//
-//void doTurn() {
-//  turnRight(255);
-//  delay(1000);
-//  motorOff();
+  if(stringComplete)
+  {
+    stringComplete = false;
+
+   int vooruit = inputVariable(inputString, "forward");
+    Serial.println(vooruit);
+   inputString = "";
+  }
 }
 void receiveInput() {
 
 
   if (blueToothSerial.available())
   { //check if there's any data sent from the remote bluetooth shield
+    recvChar = blueToothSerial.read();
+  inputString += recvChar;
+  if (recvChar == '%') {
+     stringComplete = true;
+    }
     
-    
-    if (recvChar == 'w') {
-      forward(255);
+    if (commandString == "forward") {
+      forward(inputVariable(inputString, "forward"));
       blueToothSerial.println("Forward.");
-    } else if (recvChar == 's' ) {
-      backwards(255);
+    } else if (commandString == "backward" ) {
+      backwards(inputVariable(inputString, "backward"));
       blueToothSerial.println("Backwards");
-    } else if (recvChar == 'a' ) {
-      turnLeft(255);
+    } else if (commandString == "left" ) {
+      turnLeft(inputVariable(inputString, "left"));
       blueToothSerial.println("left");
-    } else if (recvChar == 'd' ) {
-      turnRight(255);
+    } else if (commandString == "right" ) {
+      turnRight(inputVariable(inputString, "right"));
       blueToothSerial.println("right");
-    } else if(recvChar == 'l') {
+    } else if(commandString == "stop") {
       motorOff();
       blueToothSerial.println("STOP");
     }
