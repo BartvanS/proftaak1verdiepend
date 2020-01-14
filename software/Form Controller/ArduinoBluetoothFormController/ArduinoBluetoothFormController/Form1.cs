@@ -1,4 +1,5 @@
-﻿using System;
+﻿using logboek;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,8 +11,20 @@ using System.Windows.Forms;
 
 namespace ArduinoBluetoothFormController
 {
+  
     public partial class Form1 : Form
-    {        
+    {
+
+        protocolC com = new protocolC();
+        textfilemaker textFile = new textfilemaker();
+
+        private string oldString = string.Empty;
+        String inputall;
+        String command = "START";
+        String input;
+
+        protocolC protocol = new protocolC();
+
         bool KeyW = false;
         bool KeyA = false;
         bool KeyS = false;
@@ -23,8 +36,8 @@ namespace ArduinoBluetoothFormController
         public Form1()
         {
             InitializeComponent();
-            listBox1.Items.Add(new SerialPort("COM5", "ArduinoBot", 38400));
-            listBox1.Items.Add(new SerialPort("COM4", "AndereConnectie", 9600));
+            listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 9600));
+            listBox1.Items.Add(new SerialPort("COM5", "AndereConnectie", 9600));
             serialPort1.DataReceived += serialPort1_DataReceived;
             serialPort1.DtrEnable = true;
         }
@@ -37,15 +50,15 @@ namespace ArduinoBluetoothFormController
                 SerialMessage.Enabled = false;
                 ResetButton.Enabled = true;
                 ResetButton.Visible = true;
-                StopKey.BackColor = Color.Blue;
+                //StopKey.BackColor = Color.Blue;
                 ForwardButton.BackColor = Color.Blue;
                 BackwardButton.BackColor = Color.Blue;
                 LeftButton.BackColor = Color.Blue;
                 RightButton.BackColor = Color.Blue;
             }
             PressedKeys.Keyname = Key;
-            string ReturnedKey = PressedKeys.Send();
-            
+            string ReturnedKey = PressedKeys.Send(scrollbarSpeed.Value);
+
             return ReturnedKey;
         }
 
@@ -68,19 +81,71 @@ namespace ArduinoBluetoothFormController
                 //SerialRecieveData();
             }
             //RunTest(message);
-            Console.WriteLine("message = " + message);
+            
         }
 
         void SerialRecieveData()
         {
             SerialRecieve.Text += serialPort1.ReadExisting() + Environment.NewLine;
         }
-
+       
+        int nummerke = 0;
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
+             input = serialPort1.ReadTo("%");
+           
             
-            string line = serialPort1.ReadLine();
-            this.BeginInvoke(new LineReceivedEvent(LineReceived), line);
+          //  nummerke = protocol.inputInt(input, "ultrasonic");
+
+            Console.WriteLine(input);
+            com.inputInt(inputall, "forward");
+            if (com.inputInt(inputall, "forward") > 0)
+            {
+                command = "forward";
+            }
+
+            com.inputInt(inputall, "backwards");
+            if (com.inputInt(inputall, "backwards") > 0)
+            {
+                command = "backwards";
+
+            }
+
+            com.inputInt(inputall, "turnLeft");
+            if (com.inputInt(inputall, "turnLeft") > 0)
+            {
+                command = "turnLeft";
+
+            }
+
+            com.inputInt(inputall, "turnForwardLeft");
+            if (com.inputInt(inputall, "turnForwardLeft") > 0)
+            {
+                command = "turnForwardLeft";
+
+            }
+
+            com.inputInt(inputall, "turnRight");
+            if (com.inputInt(inputall, "turnRight") > 0)
+            {
+                command = "turnRight";
+
+            }
+
+            com.inputInt(inputall, "turnForwardRight");
+            if (com.inputInt(inputall, "turnRight") > 0)
+            {
+                command = "turnRight";
+
+            }
+
+            com.inputInt(inputall, "checkSpace");
+            if (com.inputInt(inputall, "checkSpace") > 0)
+            {
+                command = "checkSpace";
+
+            }
+
         }
         private delegate void LineReceivedEvent(string line);
         private void LineReceived(string line)
@@ -360,6 +425,43 @@ namespace ArduinoBluetoothFormController
             ResetButton.Enabled = false;
             ResetButton.Visible = false;
             KeyL = false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+            if(oldString != command)
+            {
+                logboekList.Items.Add(DateTime.Now.ToString("h:mm:ss tt") + " | " + command);
+                logboekList.SelectedIndex = logboekList.Items.Count - 1;
+                textFile.addToFile(command);
+            }
+
+            // Save the new value back into the temporary variable
+            oldString = command;
+            if (input != "")
+            {
+                logboekList.Items.Add(input + " : " + nummerke);
+                input = "";
+
+            }
+        }
+
+        private void fileButton_Click(object sender, EventArgs e)
+        {
+            if (fileName.Text != "")
+            {
+                textFile.makeFile(fileName.Text);
+            }
+            else
+            {
+                MessageBox.Show("Fill in a name!");
+            }
         }
     }
 }
