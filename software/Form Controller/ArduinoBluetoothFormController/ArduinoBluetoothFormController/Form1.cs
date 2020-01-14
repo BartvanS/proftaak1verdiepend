@@ -11,32 +11,33 @@ using System.Windows.Forms;
 namespace ArduinoBluetoothFormController
 {
     public partial class Form1 : Form
-    {
+    {        
         bool KeyW = false;
         bool KeyA = false;
         bool KeyS = false;
         bool KeyD = false;
-        bool KeyC = false;
+        bool KeyF = false;
+        bool KeyL = false;
         MoveKeys PressedKeys = new MoveKeys("w");
 
         public Form1()
         {
             InitializeComponent();
-            listBox1.Items.Add(new SerialPort("COM8", "ArduinoBot", 9600));
-            listBox1.Items.Add(new SerialPort("COM7", "AndereConnectie", 9600));
+            listBox1.Items.Add(new SerialPort("COM5", "ArduinoBot", 38400));
+            listBox1.Items.Add(new SerialPort("COM4", "AndereConnectie", 9600));
             serialPort1.DataReceived += serialPort1_DataReceived;
             serialPort1.DtrEnable = true;
         }
 
         public string CheckMovementkeypressed(string Key)
         {
-            if (Key == "c")
+            if (Key == "l")
             {
                 KeyPreview = false;
                 SerialMessage.Enabled = false;
                 ResetButton.Enabled = true;
                 ResetButton.Visible = true;
-                KillSwitch.BackColor = Color.Blue;
+                StopKey.BackColor = Color.Blue;
                 ForwardButton.BackColor = Color.Blue;
                 BackwardButton.BackColor = Color.Blue;
                 LeftButton.BackColor = Color.Blue;
@@ -44,7 +45,7 @@ namespace ArduinoBluetoothFormController
             }
             PressedKeys.Keyname = Key;
             string ReturnedKey = PressedKeys.Send();
-
+            
             return ReturnedKey;
         }
 
@@ -67,36 +68,38 @@ namespace ArduinoBluetoothFormController
                 //SerialRecieveData();
             }
             //RunTest(message);
-            Console.WriteLine(message);
+            Console.WriteLine("message = " + message);
         }
 
         void SerialRecieveData()
         {
-            //Console.WriteLine(serialPort1.ReadExisting());
-            //Console.WriteLine(serialPort1.ReadChar());
-
-            //SerialRecieve.Text += serialPort1.ReadExisting() + Environment.NewLine;
-            SerialRecieve.Text += serialPort1.ReadLine() + Environment.NewLine;
+            SerialRecieve.Text += serialPort1.ReadExisting() + Environment.NewLine;
         }
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
+            
             string line = serialPort1.ReadLine();
-            Console.WriteLine("returned: " + line);
             this.BeginInvoke(new LineReceivedEvent(LineReceived), line);
         }
         private delegate void LineReceivedEvent(string line);
         private void LineReceived(string line)
         {
+
             //What to do with the received line here
-            SerialRecieve.Text = line + Environment.NewLine;
+            if (line.Contains("#"))
+            {
+                //line.Remove(int iets(line.Length)--);
+            }
+
+            SerialRecieve.Text += line + Environment.NewLine + Environment.NewLine;
 
         }
 
         //Writes to the serial with the textbox next to the send button
         void SerialTextbox()
         {
-            if (SerialMessage.Text == null)
+            if(SerialMessage.Text == null)
             {
                 MessageBox.Show("Please send something");
             }
@@ -104,7 +107,7 @@ namespace ArduinoBluetoothFormController
             {
                 serialPort1.Write(SerialMessage.Text);
                 SerialMessage.Text = null;
-            }
+            }          
         }
 
         //Opens the port of the selected SerialPort in the listbox
@@ -112,7 +115,7 @@ namespace ArduinoBluetoothFormController
         private void SerialConnect()
         {
             var curItem = listBox1.SelectedItem;
-            if (curItem == null)
+            if(curItem == null)
             {
                 MessageBox.Show("Select a connection first.");
                 return;
@@ -120,12 +123,12 @@ namespace ArduinoBluetoothFormController
             List<object> selecteditem = new List<object>();
             selecteditem.Add(curItem);
 
-            foreach (SerialPort item in selecteditem)
+            foreach(SerialPort item in selecteditem)
             {
                 serialPort1.PortName = item.Port;
                 serialPort1.BaudRate = item.Baudrate;
             }
-
+                       
         }
 
         //Opens the port that you selected in the listbox
@@ -137,7 +140,7 @@ namespace ArduinoBluetoothFormController
                 MessageBox.Show("Please disconnect first");
                 return;
             }
-            SerialConnect();
+            SerialConnect();          
             try
             {
                 if (!serialPort1.IsOpen)
@@ -201,7 +204,7 @@ namespace ArduinoBluetoothFormController
             KeyPreview = true;
         }
 
-        //Dit kijkt of er een key is ingedrukt en voert dan een command naar de arduino
+       //Dit kijkt of er een key is ingedrukt en voert dan een command naar de arduino
         void MoveKeyDown(object sender, KeyEventArgs e)
         {
 
@@ -225,17 +228,25 @@ namespace ArduinoBluetoothFormController
                 LeftButton.BackColor = Color.Red;
                 KeyA = true;
             }
-            if (e.KeyCode == Keys.C)
+            if (e.KeyCode == Keys.F)
             {
-                KillSwitch.BackColor = Color.Red;
-                KeyC = true;
+                StopKey.BackColor = Color.Red;
+                KeyF = true;
+            }
+            if (e.KeyCode == Keys.L)
+            {
+                KeyL = true;
             }
 
 
-
-            if (KeyC == true)
+            if (KeyL == true)
             {
-                writeToSerial(CheckMovementkeypressed("c"));
+                writeToSerial(CheckMovementkeypressed("l")); 
+            }
+
+            if (KeyF == true)
+            {
+                writeToSerial(CheckMovementkeypressed("f"));
             }
 
 
@@ -311,7 +322,7 @@ namespace ArduinoBluetoothFormController
             else
             {
                 return;
-            }
+            }           
         }
         private void MoveKeyReleased(object sender, KeyEventArgs e)
         {
@@ -335,9 +346,10 @@ namespace ArduinoBluetoothFormController
                 RightButton.BackColor = Color.Blue;
                 KeyD = false;
             }
-            if (e.KeyCode == Keys.C)
+            if (e.KeyCode == Keys.F)
             {
-                KillSwitch.BackColor = Color.Blue;
+                StopKey.BackColor = Color.Blue;
+                KeyF = false;
             }
         }
 
@@ -347,7 +359,7 @@ namespace ArduinoBluetoothFormController
             SerialMessage.Enabled = true;
             ResetButton.Enabled = false;
             ResetButton.Visible = false;
-            KeyC = false;
+            KeyL = false;
         }
     }
 }

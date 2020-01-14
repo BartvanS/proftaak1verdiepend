@@ -10,15 +10,15 @@ namespace ArduinoBluetoothFormController
     {
         private string keyname;
         public readonly string KeyTried;
-        string[] getReturn = new string[16] { "l", "l", "w", "s", "a", "d", "l", "l", "rechtsvoor", "linksvoor", "rechtsachter", "linksachter", "w", "a", "s", "d" };
-        string[] getKeyInput = new string[16] { "c", "wasd", "wad", "sad", "aws", "dws", "ws", "ad", "wa", "wd", "sa", "sd", "w", "a", "s", "d" };
+        string[] getReturn = new string[17] { "l", "l", "l", "w", "s", "a", "d", "l", "l", "rechtsvoor", "linksvoor", "rechtsachter", "linksachter", "w", "a", "s", "d" };
+        string[] getKeyInput = new string[17] { "l", "f", "wasd", "wad", "sad", "aws", "dws", "ws", "ad", "wa", "wd", "sa", "sd", "w", "a", "s", "d" };
 
         public string Keyname
         {
             get { return keyname; }
             set
             {
-                if (value == "c" || value == "wasd" || value == "wad" || value == "sad" || value == "aws" || value == "dws" || value == "ws" || value == "ad" || value == "wa" || value == "wd" || value == "sa" || value == "sd" || value == "w" || value == "a" || value == "s" || value == "d")
+                if (value == "l" || value == "f" || value == "f" || value == "wasd" || value == "wad" || value == "sad" || value == "aws" || value == "dws" || value == "ws" || value == "ad" || value == "wa" || value == "wd" || value == "sa" || value == "sd" || value == "w" || value == "a" || value == "s" || value == "d")
                 {
                     keyname = value;
                 }
@@ -42,11 +42,11 @@ namespace ArduinoBluetoothFormController
 
         public string Send()
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 17; i++)
             {
                 if (this.Keyname == getKeyInput[i])
                 {
-                    return getReturn[i];
+                    return(getReturn[i]);
                 }
             }
             throw new Exception("Unreadable key input try a different key")
