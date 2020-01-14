@@ -1,0 +1,11 @@
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\bin\Debug\autonoomSwitchPOC.exe.config
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\bin\Debug\autonoomSwitchPOC.exe
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\bin\Debug\autonoomSwitchPOC.pdb
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.csprojAssemblyReference.cache
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.Form1.resources
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.Properties.Resources.resources
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.csproj.GenerateResource.cache
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.csproj.CoreCompileInputs.cache
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.exe
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.pdb
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.Form2.resources
