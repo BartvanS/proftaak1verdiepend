@@ -15,33 +15,35 @@ void setup()
   setUltrasone();
   pinMode(RxD, INPUT);
   pinMode(TxD, OUTPUT);
-  
 }
 
 void loop()
 {
-  
   receiveInput();
-//  int  cmMiddle = getDistance(1);
-//  int cmLeft = getDistance(2);
-                     forward(255);
-//  if (cmMiddle < minDistance) {
-//    doTurn();
-//  }
-//}
-//
-//void doTurn() {
-//  turnRight(255);
-//  delay(1000);
-//  motorOff();
+  int  cmMiddle = getDistance(1);
+  int cmLeft = getDistance(2);
+  forward(255);
+  if (cmMiddle < minDistance) {
+    doTurn();
+  }
+}
+
+void doTurn() {
+  turnRight(255);
+  delay(1000);
+  motorOff();
 }
 void receiveInput() {
-
+  if (Serial.available())
+  { //check if there's any data sent from the local serial terminal, you can add the other applications here
+    recvChar  = Serial.read();
+    blueToothSerial.println("hoi");
+  }
 
   if (blueToothSerial.available())
   { //check if there's any data sent from the remote bluetooth shield
-    
-    
+    recvChar = blueToothSerial.read();
+    Serial.print(recvChar);
     if (recvChar == 'w') {
       forward(255);
       blueToothSerial.println("Forward.");

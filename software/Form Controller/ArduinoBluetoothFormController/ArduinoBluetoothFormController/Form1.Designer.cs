@@ -29,14 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SerialDisconnect = new System.Windows.Forms.Button();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.ConnectStatus = new System.Windows.Forms.Label();
-            this.SerialMessage = new System.Windows.Forms.TextBox();
-            this.SerialWriteSend = new System.Windows.Forms.Button();
-            this.SerialRecieve = new System.Windows.Forms.RichTextBox();
             this.RightButton = new System.Windows.Forms.Button();
             this.ForwardButton = new System.Windows.Forms.Button();
             this.BackwardButton = new System.Windows.Forms.Button();
@@ -50,11 +48,16 @@
             this.StopKey = new System.Windows.Forms.Button();
             this.fileButton = new System.Windows.Forms.Button();
             this.fileName = new System.Windows.Forms.TextBox();
+            this.switchStatebtn = new System.Windows.Forms.Button();
+            this.SerialMessage = new System.Windows.Forms.TextBox();
+            this.SerialWriteSend = new System.Windows.Forms.Button();
+            this.SerialRecieve = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox1.BackgroundImage")));
             this.groupBox1.Controls.Add(this.SerialDisconnect);
             this.groupBox1.Controls.Add(this.ConnectButton);
             this.groupBox1.Controls.Add(this.listBox1);
@@ -111,40 +114,6 @@
             this.ConnectStatus.Text = "Disconnected";
             this.ConnectStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SerialMessage
-            // 
-            this.SerialMessage.Location = new System.Drawing.Point(567, 274);
-            this.SerialMessage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SerialMessage.Name = "SerialMessage";
-            this.SerialMessage.Size = new System.Drawing.Size(124, 22);
-            this.SerialMessage.TabIndex = 1;
-            this.SerialMessage.Enter += new System.EventHandler(this.SerialTextboxEntered);
-            this.SerialMessage.Leave += new System.EventHandler(this.SerialTextboxLeft);
-            // 
-            // SerialWriteSend
-            // 
-            this.SerialWriteSend.Location = new System.Drawing.Point(697, 273);
-            this.SerialWriteSend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SerialWriteSend.Name = "SerialWriteSend";
-            this.SerialWriteSend.Size = new System.Drawing.Size(75, 23);
-            this.SerialWriteSend.TabIndex = 2;
-            this.SerialWriteSend.Text = "Send";
-            this.SerialWriteSend.UseVisualStyleBackColor = true;
-            this.SerialWriteSend.Click += new System.EventHandler(this.SerialWriteSend_Click);
-            // 
-            // SerialRecieve
-            // 
-            this.SerialRecieve.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.SerialRecieve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SerialRecieve.Location = new System.Drawing.Point(577, 302);
-            this.SerialRecieve.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SerialRecieve.Name = "SerialRecieve";
-            this.SerialRecieve.ReadOnly = true;
-            this.SerialRecieve.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.SerialRecieve.Size = new System.Drawing.Size(205, 178);
-            this.SerialRecieve.TabIndex = 3;
-            this.SerialRecieve.Text = "";
-            // 
             // RightButton
             // 
             this.RightButton.BackColor = System.Drawing.Color.Blue;
@@ -191,7 +160,7 @@
             // 
             // serialPort1
             // 
-            this.serialPort1.PortName = "COM5";
+            this.serialPort1.PortName = "COM8";
             // 
             // label2
             // 
@@ -217,6 +186,7 @@
             // 
             // logboekList
             // 
+            this.logboekList.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.logboekList.FormattingEnabled = true;
             this.logboekList.ItemHeight = 16;
             this.logboekList.Location = new System.Drawing.Point(12, 153);
@@ -236,7 +206,7 @@
             this.scrollbarSpeed.Name = "scrollbarSpeed";
             this.scrollbarSpeed.Size = new System.Drawing.Size(102, 192);
             this.scrollbarSpeed.TabIndex = 15;
-            this.scrollbarSpeed.Value = 80;
+            this.scrollbarSpeed.Value = 175;
             // 
             // StopKey
             // 
@@ -266,11 +236,57 @@
             this.fileName.Size = new System.Drawing.Size(100, 22);
             this.fileName.TabIndex = 17;
             // 
+            // switchStatebtn
+            // 
+            this.switchStatebtn.Location = new System.Drawing.Point(609, 180);
+            this.switchStatebtn.Name = "switchStatebtn";
+            this.switchStatebtn.Size = new System.Drawing.Size(138, 73);
+            this.switchStatebtn.TabIndex = 18;
+            this.switchStatebtn.Text = "Autonoom";
+            this.switchStatebtn.UseVisualStyleBackColor = true;
+            this.switchStatebtn.Click += new System.EventHandler(this.SwitchStatebtn_Click);
+            // 
+            // SerialMessage
+            // 
+            this.SerialMessage.Location = new System.Drawing.Point(567, 274);
+            this.SerialMessage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SerialMessage.Name = "SerialMessage";
+            this.SerialMessage.Size = new System.Drawing.Size(124, 22);
+            this.SerialMessage.TabIndex = 1;
+            this.SerialMessage.Enter += new System.EventHandler(this.SerialTextboxEntered);
+            this.SerialMessage.Leave += new System.EventHandler(this.SerialTextboxLeft);
+            // 
+            // SerialWriteSend
+            // 
+            this.SerialWriteSend.Location = new System.Drawing.Point(697, 273);
+            this.SerialWriteSend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SerialWriteSend.Name = "SerialWriteSend";
+            this.SerialWriteSend.Size = new System.Drawing.Size(75, 23);
+            this.SerialWriteSend.TabIndex = 2;
+            this.SerialWriteSend.Text = "Send";
+            this.SerialWriteSend.UseVisualStyleBackColor = true;
+            this.SerialWriteSend.Click += new System.EventHandler(this.SerialWriteSend_Click);
+            // 
+            // SerialRecieve
+            // 
+            this.SerialRecieve.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.SerialRecieve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.SerialRecieve.Location = new System.Drawing.Point(577, 302);
+            this.SerialRecieve.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SerialRecieve.Name = "SerialRecieve";
+            this.SerialRecieve.ReadOnly = true;
+            this.SerialRecieve.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.SerialRecieve.Size = new System.Drawing.Size(205, 178);
+            this.SerialRecieve.TabIndex = 3;
+            this.SerialRecieve.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 685);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(1073, 510);
+            this.Controls.Add(this.switchStatebtn);
             this.Controls.Add(this.fileName);
             this.Controls.Add(this.fileButton);
             this.Controls.Add(this.StopKey);
@@ -305,9 +321,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label ConnectStatus;
         private System.Windows.Forms.Button ConnectButton;
-        private System.Windows.Forms.TextBox SerialMessage;
-        private System.Windows.Forms.Button SerialWriteSend;
-        private System.Windows.Forms.RichTextBox SerialRecieve;
         private System.Windows.Forms.Button RightButton;
         private System.Windows.Forms.Button ForwardButton;
         private System.Windows.Forms.Button BackwardButton;
@@ -322,6 +335,10 @@
         private System.Windows.Forms.Button StopKey;
         private System.Windows.Forms.Button fileButton;
         private System.Windows.Forms.TextBox fileName;
+        private System.Windows.Forms.Button switchStatebtn;
+        private System.Windows.Forms.TextBox SerialMessage;
+        private System.Windows.Forms.Button SerialWriteSend;
+        private System.Windows.Forms.RichTextBox SerialRecieve;
     }
 }
 

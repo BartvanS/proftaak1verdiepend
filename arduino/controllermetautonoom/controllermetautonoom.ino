@@ -46,28 +46,49 @@ void loop()
     cmMiddle = getDistance(1);
     cmLeft = getDistance(2);
     cmRight = getDistance(3);
-//    Serial.print("Middle: ");
-//    Serial.println(cmMiddle);
-//    Serial.print("Right: ");
-//    Serial.println(cmRight);
-//    Serial.print("Left: ");
+    //    Serial.print("Middle: ");
+    //    Serial.println(cmMiddle);
+    //    Serial.print("Right: ");
+    //    Serial.println(cmRight);
+    //    Serial.print("Left: ");
     //Serial.println(cmLeft);
     forward(255);
+    blueToothSerial.print("#forward:");
+    blueToothSerial.print(255);
+    blueToothSerial.print("%");
     if (cmMiddle < distance) {
       if (cmLeft < cmRight && cmLeft < distance) {
         turnRight(255);
+        blueToothSerial.print("#turnRight:");
+        blueToothSerial.print(255);
+        blueToothSerial.print("%");
       }
       else if (cmRight < cmLeft && cmRight < distance) {
         turnLeft(255);
+        blueToothSerial.print("#turnLeft:");
+        blueToothSerial.print(255);
+        blueToothSerial.print("%");
       } else if (cmRight < distance && cmLeft < distance) {
         checkSpace(100);
+        blueToothSerial.print("#turnRight:");
+        blueToothSerial.print(255);
+        blueToothSerial.print("%");
       } else {
         checkSpace(100);
+        blueToothSerial.print("#checkSpace:");
+        blueToothSerial.print(255);
+        blueToothSerial.print("%");
       }
     } else if (cmRight < distance) {
       forwardLeft(255);
+      blueToothSerial.print("#turnForwardLeft:");
+      blueToothSerial.print(255);
+      blueToothSerial.print("%");
     } else if (cmLeft < distance) {
       forwardRight(255);
+      blueToothSerial.print("#turnForwardRight:");
+      blueToothSerial.print(255);
+      blueToothSerial.print("%");
     }
   } else
   {
@@ -103,7 +124,7 @@ void receiveInput() {
       {
         isAutonom = true;
       } else {
-      
+
         isAutonom = false;
         motorOff();
       }
@@ -112,19 +133,30 @@ void receiveInput() {
     {
       if (commandString == "forward") {
         forward(inputVariable(inputString, "forward"));
-       // blueToothSerial.println("Forward.");
+
       } else if (commandString == "backward" ) {
         backwards(inputVariable(inputString, "backward"));
-       // blueToothSerial.println("Backwards");
+
       } else if (commandString == "left" ) {
         turnLeftOnSpot(inputVariable(inputString, "left"));
-       // blueToothSerial.println("left");
+
       } else if (commandString == "right" ) {
         turnRightOnSpot(inputVariable(inputString, "right"));
-        blueToothSerial.println("right");
+
       } else if (commandString == "stop") {
         motorOff();
-     //  blueToothSerial.println("STOP");
+
+      } else if (commandString == "softleft") {
+        forwardLeft(inputVariable(inputString, "softleft"));
+
+      } else if (commandString == "softright") {
+        forwardRight(inputVariable(inputString, "softright"));
+
+      } else if (commandString == "backleft") {
+        backwardLeft(inputVariable(inputString, "backleft"));
+
+      } else if (commandString == "backright") {
+        backwardRight(inputVariable(inputString, "backright"));
       }
     }
   }

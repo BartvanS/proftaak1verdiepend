@@ -9,3 +9,4 @@ C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\auton
 C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.exe
 C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.pdb
 C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\autonoomSwitchPOC.Form2.resources
+C:\Users\jarno\Desktop\proftaak1verdiepend\jarnosoftware\autonoomSwitchPOC\autonoomSwitchPOC\obj\Debug\logboek.Form3.resources

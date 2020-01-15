@@ -14,7 +14,7 @@ namespace logboek
         public void makeFile(string name)
         {
             String time = DateTime.Now.ToString("h_mm_ss_tt");
-            string filePath = "C://Users//Cabo//Desktop//files" + time + "_" + name + ".txt";
+            string filePath = "C://Users//jarno//Desktop//log//" + time + "_" + name + ".txt";
             StreamWriter File = new StreamWriter(filePath);
             foreach (var item in actions)
             {

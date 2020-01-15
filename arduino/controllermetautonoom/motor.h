@@ -10,3 +10,5 @@ void turnLeft(int motorSpeed);
 void turnRight(int motorSpeed);
 void turnRightOnSpot(int motorSpeed);
 void turnLeftOnSpot(int motorSpeed);
+void backwardLeft(int motorSpeed);
+void backwardRight(int motorSpeed);

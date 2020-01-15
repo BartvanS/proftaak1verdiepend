@@ -10,7 +10,7 @@ namespace ArduinoBluetoothFormController
     {
         private string keyname;
         public readonly string KeyTried;
-        string[] getReturn = new string[16] { "stop", "stop", "forward", "backward", "left", "right", "stop", "stop", "rechtsvoor", "linksvoor", "rechtsachter", "linksachter", "forward", "left", "backward", "right" };
+        string[] getReturn = new string[16] { "stop", "stop", "forward", "backward", "left", "right", "stop", "stop", "softleft", "softright", "backleft", "backright", "forward", "left", "backward", "right" };
         string[] getKeyInput = new string[16] { "f", "wasd", "wad", "sad", "aws", "dws", "ws", "ad", "wa", "wd", "sa", "sd", "w", "a", "s", "d" };
 
         public string Keyname
@@ -40,12 +40,13 @@ namespace ArduinoBluetoothFormController
             }
         }
 
-        public string Send(int speed)
+        public string Send(int speed, bool isAutonom)
         {
             for (int i = 0; i < 17; i++)
             {
-                if (this.Keyname == getKeyInput[i])
+                if (this.Keyname == getKeyInput[i] )
                 {
+                    
                     String send = "#" + getReturn[i] + ":" + speed + "%";
                     Console.WriteLine(send);
                     return send;

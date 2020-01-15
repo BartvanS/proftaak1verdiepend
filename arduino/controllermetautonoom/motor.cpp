@@ -68,7 +68,7 @@ void turnRight(int motorSpeed){
 }
 
 void forwardLeft(int motorSpeed){
-  int slowSpeed = motorSpeed - 200;
+  int slowSpeed = motorSpeed / 4;
   digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
   digitalWrite(in3, LOW);
@@ -77,8 +77,26 @@ void forwardLeft(int motorSpeed){
   analogWrite(enB, slowSpeed);
 }
 
+void backwardLeft(int motorSpeed){
+  int slowSpeed = motorSpeed / 4;
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, slowSpeed);
+}
+void backwardRight(int motorSpeed){
+  int slowSpeed = motorSpeed / 4;
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+  analogWrite(enA, slowSpeed);
+  analogWrite(enB, motorSpeed);
+}
 void forwardRight(int motorSpeed){
-  int slowSpeed = motorSpeed - 200;
+  int slowSpeed = motorSpeed / 4;
   digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
   digitalWrite(in3, LOW);

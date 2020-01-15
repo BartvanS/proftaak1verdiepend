@@ -22,6 +22,7 @@ namespace autonoomSwitchPOC
             //serialPort1.WriteLine("o");
             Form2 f2 = new Form2(); 
             f2.ShowDialog();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)

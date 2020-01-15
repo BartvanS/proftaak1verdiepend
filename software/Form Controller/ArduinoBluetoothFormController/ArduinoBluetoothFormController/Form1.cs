@@ -19,11 +19,12 @@ namespace ArduinoBluetoothFormController
         textfilemaker textFile = new textfilemaker();
 
         private string oldString = string.Empty;
-        String inputall;
+       
+
         String command = "START";
         String input;
 
-        protocolC protocol = new protocolC();
+    
 
         bool KeyW = false;
         bool KeyA = false;
@@ -57,7 +58,7 @@ namespace ArduinoBluetoothFormController
                 RightButton.BackColor = Color.Blue;
             }
             PressedKeys.Keyname = Key;
-            string ReturnedKey = PressedKeys.Send(scrollbarSpeed.Value);
+            string ReturnedKey = PressedKeys.Send(scrollbarSpeed.Value, isAutonom);
 
             return ReturnedKey;
         }
@@ -93,54 +94,55 @@ namespace ArduinoBluetoothFormController
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
              input = serialPort1.ReadTo("%");
+          
            
             
           //  nummerke = protocol.inputInt(input, "ultrasonic");
 
-            Console.WriteLine(input);
-            com.inputInt(inputall, "forward");
-            if (com.inputInt(inputall, "forward") > 0)
+            
+            com.inputInt(input, "forward");
+            if (com.inputInt(input, "forward") > 0)
             {
                 command = "forward";
             }
 
-            com.inputInt(inputall, "backwards");
-            if (com.inputInt(inputall, "backwards") > 0)
+            com.inputInt(input, "backwards");
+            if (com.inputInt(input, "backwards") > 0)
             {
                 command = "backwards";
 
             }
 
-            com.inputInt(inputall, "turnLeft");
-            if (com.inputInt(inputall, "turnLeft") > 0)
+            com.inputInt(input, "turnLeft");
+            if (com.inputInt(input, "turnLeft") > 0)
             {
                 command = "turnLeft";
 
             }
 
-            com.inputInt(inputall, "turnForwardLeft");
-            if (com.inputInt(inputall, "turnForwardLeft") > 0)
+            com.inputInt(input, "turnForwardLeft");
+            if (com.inputInt(input, "turnForwardLeft") > 0)
             {
                 command = "turnForwardLeft";
 
             }
 
-            com.inputInt(inputall, "turnRight");
-            if (com.inputInt(inputall, "turnRight") > 0)
+            com.inputInt(input, "turnRight");
+            if (com.inputInt(input, "turnRight") > 0)
             {
                 command = "turnRight";
 
             }
 
-            com.inputInt(inputall, "turnForwardRight");
-            if (com.inputInt(inputall, "turnRight") > 0)
+            com.inputInt(input, "turnForwardRight");
+            if (com.inputInt(input, "turnRight") > 0)
             {
                 command = "turnRight";
 
             }
 
-            com.inputInt(inputall, "checkSpace");
-            if (com.inputInt(inputall, "checkSpace") > 0)
+            com.inputInt(input, "checkSpace");
+            if (com.inputInt(input, "checkSpace") > 0)
             {
                 command = "checkSpace";
 
@@ -272,37 +274,37 @@ namespace ArduinoBluetoothFormController
        //Dit kijkt of er een key is ingedrukt en voert dan een command naar de arduino
         void MoveKeyDown(object sender, KeyEventArgs e)
         {
-
-            if (e.KeyCode == Keys.W)
-            {
-                ForwardButton.BackColor = Color.Red;
-                KeyW = true;
-            }
-            if (e.KeyCode == Keys.S)
-            {
-                BackwardButton.BackColor = Color.Red;
-                KeyS = true;
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                RightButton.BackColor = Color.Red;
-                KeyD = true;
-            }
-            if (e.KeyCode == Keys.A)
-            {
-                LeftButton.BackColor = Color.Red;
-                KeyA = true;
-            }
-            if (e.KeyCode == Keys.F)
-            {
-                StopKey.BackColor = Color.Red;
-                KeyF = true;
-            }
-            if (e.KeyCode == Keys.L)
-            {
-                KeyL = true;
-            }
-
+         
+                if (e.KeyCode == Keys.W)
+                {
+                    ForwardButton.BackColor = Color.Red;
+                    KeyW = true;
+                }
+                if (e.KeyCode == Keys.S)
+                {
+                    BackwardButton.BackColor = Color.Red;
+                    KeyS = true;
+                }
+                if (e.KeyCode == Keys.D)
+                {
+                    RightButton.BackColor = Color.Red;
+                    KeyD = true;
+                }
+                if (e.KeyCode == Keys.A)
+                {
+                    LeftButton.BackColor = Color.Red;
+                    KeyA = true;
+                }
+                if (e.KeyCode == Keys.F)
+                {
+                    StopKey.BackColor = Color.Red;
+                    KeyF = true;
+                }
+                if (e.KeyCode == Keys.L)
+                {
+                    KeyL = true;
+                }
+            
 
             if (KeyL == true)
             {
@@ -391,26 +393,29 @@ namespace ArduinoBluetoothFormController
         }
         private void MoveKeyReleased(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.W)
-            {
-                ForwardButton.BackColor = Color.Blue;
-                KeyW = false;
-            }
-            if (e.KeyCode == Keys.S)
-            {
-                BackwardButton.BackColor = Color.Blue;
-                KeyS = false;
-            }
-            if (e.KeyCode == Keys.A)
-            {
-                LeftButton.BackColor = Color.Blue;
-                KeyA = false;
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                RightButton.BackColor = Color.Blue;
-                KeyD = false;
-            }
+           
+                if (e.KeyCode == Keys
+                        .W)
+                {
+                    ForwardButton.BackColor = Color.Blue;
+                    KeyW = false;
+                }
+                if (e.KeyCode == Keys.S)
+                {
+                    BackwardButton.BackColor = Color.Blue;
+                    KeyS = false;
+                }
+                if (e.KeyCode == Keys.A)
+                {
+                    LeftButton.BackColor = Color.Blue;
+                    KeyA = false;
+                }
+                if (e.KeyCode == Keys.D)
+                {
+                    RightButton.BackColor = Color.Blue;
+                    KeyD = false;
+                }
+            
             if (e.KeyCode == Keys.F)
             {
                 StopKey.BackColor = Color.Blue;
@@ -430,6 +435,11 @@ namespace ArduinoBluetoothFormController
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            lstBtn.Add(ForwardButton);
+            lstBtn.Add(LeftButton);
+            lstBtn.Add(RightButton);
+            lstBtn.Add(BackwardButton);
+            lstBtn.Add(StopKey);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -444,12 +454,7 @@ namespace ArduinoBluetoothFormController
 
             // Save the new value back into the temporary variable
             oldString = command;
-            if (input != "")
-            {
-                logboekList.Items.Add(input + " : " + nummerke);
-                input = "";
-
-            }
+          
         }
 
         private void fileButton_Click(object sender, EventArgs e)
@@ -461,6 +466,25 @@ namespace ArduinoBluetoothFormController
             else
             {
                 MessageBox.Show("Fill in a name!");
+            }
+        }
+        List<Button> lstBtn = new List<Button>();
+        bool isAutonom;
+        private void SwitchStatebtn_Click(object sender, EventArgs e)
+        {
+            isAutonom = !isAutonom;
+            if(isAutonom)
+            {
+                switchStatebtn.BackColor = Color.Green;
+                switchStatebtn.Text = "Controller";
+                serialPort1.Write("#autonoom:2%");
+                KeyPreview = true;
+            }else
+            {
+                switchStatebtn.BackColor = Color.Orange;
+                switchStatebtn.Text = "Autonoom";
+                serialPort1.Write("#autonoom:1%");
+                KeyPreview = false;
             }
         }
     }
