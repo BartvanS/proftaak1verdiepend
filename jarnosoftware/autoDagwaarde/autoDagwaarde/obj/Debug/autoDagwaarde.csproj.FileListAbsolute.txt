@@ -1,0 +1,7 @@
+C:\Users\jarno\source\repos\autoDagwaarde\autoDagwaarde\bin\Debug\autoDagwaarde.exe.config
+C:\Users\jarno\source\repos\autoDagwaarde\autoDagwaarde\bin\Debug\autoDagwaarde.exe
+C:\Users\jarno\source\repos\autoDagwaarde\autoDagwaarde\bin\Debug\autoDagwaarde.pdb
+C:\Users\jarno\source\repos\autoDagwaarde\autoDagwaarde\obj\Debug\autoDagwaarde.csprojAssemblyReference.cache
+C:\Users\jarno\source\repos\autoDagwaarde\autoDagwaarde\obj\Debug\autoDagwaarde.csproj.CoreCompileInputs.cache
+C:\Users\jarno\source\repos\autoDagwaarde\autoDagwaarde\obj\Debug\autoDagwaarde.exe
+C:\Users\jarno\source\repos\autoDagwaarde\autoDagwaarde\obj\Debug\autoDagwaarde.pdb
