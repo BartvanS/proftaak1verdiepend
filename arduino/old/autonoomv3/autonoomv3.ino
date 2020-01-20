@@ -26,30 +26,30 @@ void loop() {
   Serial.println(cmRight);
   Serial.print("Left: ");
   Serial.println(cmLeft);
-//  forward(255);
-//  if (cmMiddle < distance) {
-//    if (cmLeft < cmRight && cmLeft < distance) {
-//      turnRight(255);
-//    }
-//    else if (cmRight < cmLeft && cmRight < distance) {
-//      turnLeft(255);
-//    } else if (cmRight < distance && cmLeft < distance) {
-//      checkSpace(100);
-//    } else {
-//      checkSpace(100);
-//    }
-//  } else if (cmRight < distance) {
-//    forwardLeft(255);
-//  } else if (cmLeft < distance) {
-//    forwardRight(255);
-//  }
+  forward(255);
+  if (cmMiddle < distance) {
+    if (cmLeft < cmRight && cmLeft < distance) {
+      turnRight(255);
+    }
+    else if (cmRight < cmLeft && cmRight < distance) {
+      turnLeft(255);
+    } else if (cmRight < distance && cmLeft < distance) {
+      checkSpace(100);
+    } else {
+      checkSpace(100);
+    }
+  } else if (cmRight < distance) {
+    forwardLeft(255);
+  } else if (cmLeft < distance) {
+    forwardRight(255);
+  }
 }
-//
-//void checkSpace(int motorSpeed) {
-//  motorOff();
-//  if (cmLeft > cmRight) {
-//    turnLeftOnSpot(motorSpeed);
-//  } else if (cmRight > cmLeft) {
-//    turnRightOnSpot(motorSpeed);
-//  }
-//}
+
+void checkSpace(int motorSpeed) {
+  motorOff();
+  if (cmLeft > cmRight) {
+    turnLeftOnSpot(motorSpeed);
+  } else if (cmRight > cmLeft) {
+    turnRightOnSpot(motorSpeed);
+  }
+}
