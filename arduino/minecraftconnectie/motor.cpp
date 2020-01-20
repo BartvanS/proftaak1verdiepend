@@ -3,12 +3,11 @@
 
 //pins voor de motor shield:
 int enA = 10;
-int in1 = 7;
-int in2 = 6;
+int in1 = 9;
+int in2 = 8;
 int enB = 11;
 int in3 = 5;
 int in4 = 4;
-
 
 void initMotor(bool autonoom){
   if(autonoom == false){
@@ -19,8 +18,8 @@ void initMotor(bool autonoom){
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
   } else if(autonoom == true){
-    in1 = 6;
-    in2 = 7;
+    in1 = 8;
+    in2 = 9;
     in3 = 4;
     in4 = 5;
     pinMode(enA, OUTPUT);
@@ -52,18 +51,74 @@ void backwards(int motorSpeed){
 
 void turnLeft(int motorSpeed){
   digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
   analogWrite(enA, motorSpeed);
   analogWrite(enB, motorSpeed);
 }
 
 void turnRight(int motorSpeed){
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, motorSpeed);
+}
+
+void forwardLeft(int motorSpeed){
+  int slowSpeed = motorSpeed / 4;
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, slowSpeed);
+}
+
+void backwardLeft(int motorSpeed){
+  int slowSpeed = motorSpeed / 4;
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, slowSpeed);
+}
+void backwardRight(int motorSpeed){
+  int slowSpeed = motorSpeed / 4;
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+  analogWrite(enA, slowSpeed);
+  analogWrite(enB, motorSpeed);
+}
+void forwardRight(int motorSpeed){
+  int slowSpeed = motorSpeed / 4;
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+  analogWrite(enA, slowSpeed);
+  analogWrite(enB, motorSpeed);
+}
+
+void turnLeftOnSpot(int motorSpeed){
   digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
   digitalWrite(in3, HIGH);
   digitalWrite(in4, LOW);
+  analogWrite(enA, motorSpeed);
+  analogWrite(enB, motorSpeed);
+}
+
+void turnRightOnSpot(int motorSpeed){
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
   analogWrite(enA, motorSpeed);
   analogWrite(enB, motorSpeed);
 }
