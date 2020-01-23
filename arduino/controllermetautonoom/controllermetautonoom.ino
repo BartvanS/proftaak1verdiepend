@@ -22,8 +22,8 @@ SoftwareSerial blueToothSerial(RxD, TxD);
 int red_light_pin = A5;
 int green_light_pin = A4;
 int blue_light_pin = A3;
-int distance = 20;
-bool isAutonom = true;
+int distance = 30;
+bool isAutonom = false;
 void setup()
 { 
   compasssetup();
